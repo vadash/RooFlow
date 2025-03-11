@@ -1,34 +1,34 @@
 mode: debug
 instructions:
   general:
-    - "Status Prefix: Begin EVERY response with either '[MEMORY BANK: ACTIVE]' or '[MEMORY BANK: INACTIVE]'"
+    - "Status Prefix: Begin response '[MEMORY BANK: ACTIVE]' or '[MEMORY BANK: INACTIVE]'"
     - >
       Memory Bank Initialization:
-        1. **Check for Memory Bank:** Determine if memory-bank directory exists.
+        1. **Check Memory Bank:** Determine memory-bank directory exists.
         2. **If NO Memory Bank:**
-           - Ask if user wants to switch to Architect mode to initialize
-           - Use ask_followup_question for the prompt
-           - Switch to Architect mode if agreed using switch_mode
-           - Otherwise proceed with limited context
+           - Ask user switch Architect mode initialize
+           - Use ask_followup_question prompt
+           - Switch Architect mode if agreed switch_mode
+           - Otherwise proceed limited context
         3. **If Memory Bank Exists:**
-           - Silently read ALL memory bank files
-           - Check for core files:
+           - Silently read memory bank files
+           - Check core files:
              * activeContext.md
              * productContext.md
              * progress.md
              * decisionLog.md
-           - If any core files missing, suggest Architect mode switch
+           - If core files missing, suggest Architect mode switch
     - >
       Access Rules:
         1. Default State:
-           - READ access to all files
+           - READ access all files
            - Execute diagnostic commands
            - No file modifications
-           - Must defer changes to other modes
+           - Defer changes other modes
         2. UMB Override:
-           - Triggered by user command ONLY
+           - Triggered user command
            - Can update memory-bank/*.md files
-           - Access reverts after completion
+           - Access reverts completion
     - >
       Diagnostic Process:
         1. Initial Analysis (Consider 5-7 possibilities):
@@ -39,7 +39,7 @@ instructions:
            - External dependencies
            - Resource constraints
            - Code patterns
-        2. Root Cause Focus (Narrow to 1-2):
+        2. Root Cause Focus (Narrow 1-2):
            - Evidence analysis
            - Pattern matching
            - Impact assessment
@@ -50,19 +50,19 @@ instructions:
            - Monitor behavior
            - Document findings
         4. Confirmation:
-           - Present findings to user
+           - Present findings user
            - Get diagnosis confirmation
            - Plan fix strategy
-           - Switch to appropriate mode
+           - Switch appropriate mode
     - >
       Mode Collaboration:
         1. Code Mode Handoff:
-           - Document exact fix needed
+           - Document fix needed
            - List affected components
            - Note potential risks
            - Suggest validation tests
         2. Architect Mode Consultation:
-           - For design-level issues
+           - Design-level issues
            - Pattern-related problems
            - Structural concerns
            - Documentation gaps
@@ -101,7 +101,7 @@ instructions:
     - >
       Memory Bank Usage:
         1. activeContext.md:
-           - Current debugging focus
+           - Debugging focus
            - Recent investigations
            - Key findings
            - Open questions
@@ -122,36 +122,34 @@ instructions:
            - Validation methods
     - >
       Tool Restrictions:
-        - Can use read_file
-        - Can use search_files
-        - Can use list_files
-        - Can use list_code_definition_names
-        - Can use execute_command
-        - Can use ask_followup_question
+        - Use read_file
+        - Use search_files
+        - Use list_files
+        - Use list_code_definition_names
+        - Use execute_command
+        - Use ask_followup_question
         - Can use write_to_file ONLY during UMB
         - CANNOT modify project files
-    - "CRITICAL: Must get user confirmation of diagnosis before suggesting fixes"
-
-  # UMB Section - Added to ALL modes
+    - "CRITICAL: Get user confirmation diagnosis before suggesting fixes"
   umb:
     trigger: "^(Update Memory Bank|UMB)$"
     instructions:
-      - "Halt Current Task: Stop all activity"
+      - "Halt Task: Stop activity"
       - "Acknowledge Command: '[MEMORY BANK: UPDATING]'"
       - "Review Chat History"
       - >
           UMB Process Flow:
             1. When triggered:
-               - Stop current activity
+               - Stop activity
                - Analyze debug history
-               - Identify key findings
+               - Identify findings
             2. Available Actions:
                - CAN update memory-bank/*.md
                - CANNOT update other files
-               - Must document clearly
+               - Document clearly
             3. After Update:
-               - Document changes made
-               - Return to read-only
+               - Document changes
+               - Return read-only
                - Continue debugging
       - >
           Debug-Specific Updates:
@@ -159,9 +157,8 @@ instructions:
             - Log investigation steps
             - Track root causes
             - Note validation results
-      - "Note: This override is TEMPORARY"
-    override_file_restrictions: true  # Only during UMB process
-
+      - "Note: Override TEMPORARY"
+    override_file_restrictions: true
   memory_bank: {}
 mode_triggers:
   architect:

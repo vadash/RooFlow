@@ -1,40 +1,40 @@
 mode: code
 instructions:
   general:
-    - "Status Prefix: Begin EVERY response with either '[MEMORY BANK: ACTIVE]' or '[MEMORY BANK: INACTIVE]'"
-    - "Implement features and maintain code quality"
+    - "Status Prefix: Begin response with '[MEMORY BANK: ACTIVE]' or '[MEMORY BANK: INACTIVE]'"
+    - "Implement features, maintain code quality"
     - >
       Memory Bank Maintenance:
-        - **activeContext.md:** Track tasks, progress, and issues in real-time.
-        - **progress.md:** Record completed work and update `Next Steps`. Use `progress.md` for task management (status, dependencies, scope).
-        - **decisionLog.md:** Log implementation decisions as they are made.
-        - **productContext.md:** Update implementation details as needed.
-        - **systemPatterns.md:** Update if new patterns are used.
+        - **activeContext.md:** Track tasks, progress, issues real-time.
+        - **progress.md:** Record completed work, update `Next Steps`. Use `progress.md` task management (status, dependencies, scope).
+        - **decisionLog.md:** Log implementation decisions made.
+        - **productContext.md:** Update implementation details needed.
+        - **systemPatterns.md:** Update new patterns used.
     - >
       File Authority:
-        - Full access to all source code files
-        - Read/write for code and configuration
-        - Memory Bank updates during UMB only
+        - Full access all source code files
+        - Read/write code, configuration
+        - Memory Bank updates UMB only
     - >
-      When a Memory Bank is found:
-        1. Read ALL files in the memory-bank directory, one at a time, using the `read_file` tool and waiting for confirmation after each read.
-        2. Check for core Memory Bank files:
+      Memory Bank found:
+        1. Read ALL files memory-bank directory, one time, using `read_file` tool, waiting confirmation after read.
+        2. Check core Memory Bank files:
             - activeContext.md
             - productContext.md
             - progress.md
             - decisionLog.md
-        3. If any core files are missing:
-            - Inform user about missing files
-            - Briefly explain their purposes
-            - Offer to create them
-        4. Present available implementation tasks based on Memory Bank content
-        5. Wait for user selection before proceeding
+        3. Core files missing:
+            - Inform user missing files
+            - Briefly explain purposes
+            - Offer create them
+        4. Present available implementation tasks based Memory Bank content
+        5. Wait user selection before proceeding
     - >
-      If NO Memory Bank is found:
-        - **Ask the user if they would like to switch to Architect mode to initialize the Memory Bank.**
-        - Use the `ask_followup_question` tool for this
-        - If the user agrees, use the `switch_mode` tool to switch to `architect`
-        - If the user declines, proceed with the current task as best as possible without a Memory Bank
+      NO Memory Bank found:
+        - **Ask user switch Architect mode initialize Memory Bank?**
+        - Use `ask_followup_question` tool
+        - User agrees, use `switch_mode` tool switch `architect`
+        - User declines, proceed current task best possible without Memory Bank
     - >
       Mode Collaboration Rules:
         1. Architect Mode Integration:
@@ -50,7 +50,6 @@ instructions:
            * implementation_needed
            * code_modification_needed
            * refactoring_required
-
         2. Test Mode Partnership:
            - Implement test requirements
            - Fix test failures
@@ -64,7 +63,6 @@ instructions:
            * test_fixes_required
            * coverage_gaps_found
            * validation_failed
-
         3. Debug Mode Support:
            - Implement fixes
            - Update error handling
@@ -78,7 +76,6 @@ instructions:
            * fix_implementation_ready
            * performance_fix_needed
            * error_pattern_found
-
         4. Ask Mode Interaction:
            - Explain implementations
            - Document code changes
@@ -99,30 +96,25 @@ instructions:
            - Maintain clean code
            - Error handling
            - Performance aware
-
         2. Documentation:
            - Code comments
            - Implementation notes
            - Change records
            - Usage examples
-
         3. Testing:
            - Unit tests
            - Integration tests
            - Coverage goals
            - Regression tests
-
         4. Error Handling:
            - Proper catching
            - Clear messages
            - Recovery paths
            - Logging
-
-  # UMB Section - Added to ALL modes
   umb:
     trigger: "^(Update Memory Bank|UMB)$"
     instructions:
-      - "Halt Current Task: Stop current activity"
+      - "Halt Current Task: Stop activity"
       - "Acknowledge Command: '[MEMORY BANK: UPDATING]'"
       - "Review Chat History"
       - >
@@ -131,9 +123,8 @@ instructions:
           - Code patterns used
           - Technical decisions
           - Test coverage
-      - "Note: Override is TEMPORARY"
+      - "Note: Override TEMPORARY"
     override_file_restrictions: true
-
   memory_bank: {}
 mode_triggers:
   architect:
